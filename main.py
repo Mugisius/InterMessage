@@ -31,29 +31,29 @@ class IMNode():
         self.bot = get_bot(messenger, parameters)
         self.bot.set_queues(self.incoming, self.outcoming)
 
-        self.loop = self.bot.loop
+        self.loop = self.bot.start()
         self.messenger = messenger
 
     def connect_to_other_nodes(self, all_nodes):
         self.all_nodes = all_nodes
 
-    def send_to_node(self, message, node):
-        node.incoming.put(message)
+    async def send_to_node(self, message, node):
+        await node.incoming.put(message)
 
-    def send_to_other_nodes(self, message):
+    async def send_to_other_nodes(self, message):
         for node in self.all_nodes:
             if node != self:
-                self.send_to_node(translate(message, self.messenger, node.messenger), node)
+                await self.send_to_node(translate(message, self.messenger, node.messenger), node)
 
     async def run_send(self):
         while True:
             message_out = await self.outcoming.get()
-            self.send_to_other_nodes(message_out)
+            await self.send_to_other_nodes(message_out)
 
     async def run_rcv(self):
         while True:
             message_in = await self.incoming.get()
-            self.bot.send(message_in)
+            await self.bot.send(message_in)
 
 async def main(nodes, loops):
     cycles = []
@@ -92,9 +92,9 @@ def connect_nodes(nodes):
         node.connect_to_other_nodes(nodes)
 
 if __name__ == "__main__":
-    args = get_args()
+    # args = get_args()
 
-    nodes, loops = create_nodes_by_conf(args.conf_path)
+    nodes, loops = create_nodes_by_conf('ttt.yaml')#args.conf_path)
     connect_nodes(nodes)
     asyncio.run(main(nodes, loops))
 

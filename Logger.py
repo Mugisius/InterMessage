@@ -1,17 +1,20 @@
 from BotBase import BotBase
+import asyncio
+import aiofiles as aiof
 
 class Logger(BotBase):
     def __init__(self, parameters):
-        log_file = open(parameters["logPath"], "w")
-        self.log_file = log_file
-        async def loop():
-            pass
-        self.loop = loop
+        self.path = parameters["logPath"]
         print("Created Logger")
+    
+    async def start(self):
+        while True:
+            await asyncio.sleep(0)
     
     def base_message_handler(self, msg):
         pass
 
-    def send(self, msg):
-        self.log_file.write(msg)
+    async def send(self, msg):
+        async with aiof.open(self.path, "a") as log_file:
+            await log_file.write(msg + "\n")
     
