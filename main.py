@@ -3,9 +3,10 @@ import argparse
 import yaml
 
 from translator import translate
-import TelegramBot
-import VkBot
-import DiscordBot
+from TelegramBot import TelegramBot
+from VkBot import VkBot
+from DiscordBot import DiscordBot
+from Logger import Logger
 
 def get_bot(messenger, parameters):
 
@@ -16,6 +17,8 @@ def get_bot(messenger, parameters):
             return VkBot(parameters)
         case "discord":
             return DiscordBot(parameters)
+        case "logger":
+            return Logger(parameters)
 
 
 #узел сети InterMessage, содержит объект бота и очереди входных сообщений и выходных сообщений
@@ -28,6 +31,7 @@ class IMNode():
         self.bot = get_bot(messenger, parameters)
         self.bot.set_queues(self.incoming, self.outcoming)
 
+        self.loop = self.bot.loop
         self.messenger = messenger
 
     def connect_to_other_nodes(self, all_nodes):
@@ -51,13 +55,13 @@ class IMNode():
             message_in = await self.incoming.get()
             self.bot.send(message_in)
 
-async def main(nodes):
+async def main(nodes, loops):
     cycles = []
     for node in nodes:
         cycles.append(node.run_send())
         cycles.append(node.run_rcv())
 
-    await asyncio.gather(*cycles)
+    await asyncio.gather(*cycles, *loops)
 
 def get_args():
     parser = argparse.ArgumentParser(description="Приложение InterMessage для объединения чатов в разных мессенджерах")
@@ -72,14 +76,16 @@ def validate(conf):
 
 def create_nodes_by_conf(conf_path):
     with open(conf_path) as conf_file:
-        conf = yaml.load(conf_file)
+        conf = yaml.load(conf_file, Loader=yaml.loader.SafeLoader)
         validate(conf)
 
         nodes = []
-        for messenger in conf:
+        loops = []
+        for messenger in conf.values():
             nodes.append(IMNode(messenger['name'], messenger['parameters']))
+            loops.append(nodes[-1].loop)
         
-        return nodes
+        return nodes, loops
     
 def connect_nodes(nodes):
     for node in nodes:
@@ -88,8 +94,8 @@ def connect_nodes(nodes):
 if __name__ == "__main__":
     args = get_args()
 
-    nodes = create_nodes_by_conf(args.conf_path)
+    nodes, loops = create_nodes_by_conf(args.conf_path)
     connect_nodes(nodes)
-    asyncio.run(main(nodes))
+    asyncio.run(main(nodes, loops))
 
 
