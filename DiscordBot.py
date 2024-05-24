@@ -4,11 +4,10 @@ import discord
 
 class DiscordBot(BotBase):
     def __init__(self, parameters):
-        intents = discord.Intents.default()
+        intents = discord.Intents.all()
         intents.message_content = True
         self.client = discord.Client(intents=intents)
 
-        self.channel = parameters["channel"]
         self.token = parameters['token']
     
         @self.client.event
@@ -18,15 +17,18 @@ class DiscordBot(BotBase):
         print("Created DiscordBot")
         
     async def start(self):
-        while True:
-            await self.client.start(self.token)
+        await self.client.start(self.token)
     
     def base_message_handler(self, message):
+        print("Id чата:", message.channel.id)
+        self.channel = self.client.get_channel(message.channel.id)
+        print(self.channel)
         if message.author == self.client.user:
             return
-        if message.channel.id == self.channel:
-            self.outcoming.put_nowait(message.content)
+        print("Message content is", message.content)
+        self.outcoming.put_nowait(message.content)
 
     async def send(self, message):
-        await self.channel.send(message)
+        print("Message to discord:", message.text)
+        await self.channel.send(message.text)
     
