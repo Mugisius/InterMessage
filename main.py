@@ -17,6 +17,8 @@ def get_bot(messenger, parameters):
             return VkBot(parameters)
         case "discord":
             return DiscordBot(parameters)
+        case "logger":
+            return Logger(parameters)
 
 
 #узел сети InterMessage, содержит объект бота и очереди входных сообщений и выходных сообщений
