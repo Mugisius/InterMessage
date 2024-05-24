@@ -13,7 +13,11 @@ class BotBase(ABC):
         print("BotBase abstract method is not implemented")
 
     @abstractmethod
-    def send():
+    async def send():
+        print("BotBase abstract method is not implemented")
+
+    @abstractmethod
+    async def start():
         print("BotBase abstract method is not implemented")
 
     def set_queues(self, incoming, outcoming):
