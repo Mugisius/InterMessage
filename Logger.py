@@ -16,5 +16,9 @@ class Logger(BotBase):
 
     async def send(self, msg):
         async with aiof.open(self.path, "a") as log_file:
-            await log_file.write(msg + "\n")
+            log = ' '.join([ msg.date.strftime('%d-%m-%Y %H:%M:%S'),
+                             msg.sourse,
+                             msg.author,
+                             msg.text, '\n'])
+            await log_file.write(log)
     
