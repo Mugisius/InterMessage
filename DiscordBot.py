@@ -1,4 +1,5 @@
 from BotBase import BotBase
+from Message import Message, Attachment
 import discord
 
 
@@ -25,8 +26,16 @@ class DiscordBot(BotBase):
         print(self.channel)
         if message.author == self.client.user:
             return
-        print("Message content is", message.content)
-        self.outcoming.put_nowait(message.content)
+          
+        if message.channel.id == self.channel:
+            attachments = []
+            for a in message.attachments:
+                attachments.append(Attachment(a.content_type, a.url))
+            msg = Message(message.author.name,
+                          message.created_at,
+                          text=message.content,
+                          attachments=attachments)
+            self.outcoming.put_nowait(msg)
 
     async def send(self, message):
         print("Message to discord:", message.text)
