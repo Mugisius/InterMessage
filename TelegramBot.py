@@ -1,5 +1,5 @@
 from BotBase import BotBase
-import asyncio
+from Message import Message, Attachment
 import aiogram
 
 class TelegramBot(BotBase):
@@ -22,15 +22,21 @@ class TelegramBot(BotBase):
         self.bot_user = await self.bot.get_me()
         await self.dp.start_polling(self.bot)
 
-    def base_message_handler(self, message):
-        print("Id чата:", message.from_user.id)
-        if message.from_user == self.bot_user:
+    def base_message_handler(self, msg):
+
+        if msg.from_user == self.bot_user:
             return
+        
+        message = Message(msg.from_user.first_name,
+              msg.date,
+              text=msg.text,
+              attachments=[])
+        message.source = "telegram"
+        
         self.outcoming.put_nowait(message)
 
     async def send(self, message):
-        text = message
-        await self.bot.send_message(self.chat_id, text) 
+        await self.bot.send_message(self.chat_id, message.text) 
 
 
 
