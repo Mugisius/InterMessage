@@ -43,7 +43,6 @@ class IMNode():
     async def send_to_other_nodes(self, message):
         for node in self.all_nodes:
             if node != self:
-                message.sourse = self.messenger
                 await self.send_to_node(translate(message, self.messenger, node.messenger), node)
 
     async def run_send(self):

@@ -11,13 +11,13 @@ class Logger(BotBase):
         while True:
             await asyncio.sleep(0)
     
-    def base_message_handler(self, msg):
+    def base_message_handler(self, message):
         pass
 
     async def send(self, msg):
         async with aiof.open(self.path, "a") as log_file:
             log = ' '.join([ msg.date.strftime('%d-%m-%Y %H:%M:%S'),
-                             msg.sourse,
+                             msg.source,
                              msg.author,
                              msg.text, '\n'])
             await log_file.write(log)

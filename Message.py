@@ -1,4 +1,5 @@
 import requests
+
 class Message():
     def __init__(self, author, date, * , text='', attachments=[]) -> None:
         self.author = author

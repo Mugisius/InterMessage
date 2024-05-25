@@ -20,23 +20,24 @@ class DiscordBot(BotBase):
     async def start(self):
         await self.client.start(self.token)
     
-    def base_message_handler(self, message):
-        print("Id чата:", message.channel.id)
-        self.channel = self.client.get_channel(message.channel.id)
-        print(self.channel)
-        if message.author == self.client.user:
+    def base_message_handler(self, msg):
+        self.channel = self.client.get_channel(msg.channel.id)
+
+        if msg.author == self.client.user:
             return
-        if message.channel.id == self.channel:
-            attachments = []
-            for a in message.attachments:
-                attachments.append(Attachment(a.content_type, a.url))
-            msg = Message(message.author.name,
-                          message.created_at,
-                          text=message.content,
-                          attachments=attachments)
-            self.outcoming.put_nowait(msg)
+        
+        attachments = []
+        for a in msg.attachments:
+            attachments.append(Attachment(a.content_type, a.url))
+
+        message = Message(msg.author.name,
+                      msg.created_at,
+                      text=msg.content,
+                      attachments=attachments)
+        message.source = "discord"
+        
+        self.outcoming.put_nowait(message)
 
     async def send(self, message):
-        print("Message to discord:", message.text)
         await self.channel.send(message.text)
     
