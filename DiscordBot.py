@@ -8,12 +8,18 @@ class DiscordBot(BotBase):
         intents = discord.Intents.all()
         intents.message_content = True
         self.client = discord.Client(intents=intents)
+        self.channelID = parameters['channel']
 
         self.token = parameters['token']
     
         @self.client.event
+        async def on_ready():
+            self.channel = await self.client.fetch_channel(self.channelID)
+
+        @self.client.event
         async def on_message(message):
             self.base_message_handler(message)
+
 
         print("Created DiscordBot")
         
@@ -21,8 +27,6 @@ class DiscordBot(BotBase):
         await self.client.start(self.token)
     
     def base_message_handler(self, msg):
-        self.channel = self.client.get_channel(msg.channel.id)
-
         if msg.author == self.client.user:
             return
         
