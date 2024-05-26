@@ -1,4 +1,4 @@
-from BotBase import BotBase
+from Bots.BotBase import BotBase
 from vkbottle.bot import Bot
 from vkbottle import API
 

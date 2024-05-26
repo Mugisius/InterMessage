@@ -3,10 +3,10 @@ import argparse
 import yaml
 
 from translator import translate
-from TelegramBot import TelegramBot
-from VkBot import VkBot
-from DiscordBot import DiscordBot
-from Logger import Logger
+from Bots.TelegramBot import TelegramBot
+from Bots.VkBot import VkBot
+from Bots.DiscordBot import DiscordBot
+from Bots.Logger import Logger
 
 import logging
 

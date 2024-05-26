@@ -1,4 +1,4 @@
-from BotBase import BotBase
+from Bots.BotBase import BotBase
 import asyncio
 import aiofiles as aiof
 
