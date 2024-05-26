@@ -8,6 +8,10 @@ from VkBot import VkBot
 from DiscordBot import DiscordBot
 from Logger import Logger
 
+import logging
+
+logging.basicConfig(level=logging.ERROR)
+
 def get_bot(messenger, parameters):
 
     match messenger:
@@ -93,6 +97,8 @@ def connect_nodes(nodes):
 
 if __name__ == "__main__":
     # args = get_args()
+
+    logging.basicConfig(level=logging.ERROR)
 
     nodes, loops = create_nodes_by_conf('ttt.yaml')#args.conf_path)
     connect_nodes(nodes)
