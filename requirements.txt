@@ -1,0 +1,7 @@
+vkbottle==4.3.12
+aiohttp==3.9.0
+discord
+PyYAML
+requests
+setuptools
+aiogram
