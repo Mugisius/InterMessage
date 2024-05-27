@@ -7,6 +7,7 @@ from Message import Message, Attachment
 
 import datetime
 
+
 class VkBot(BotBase):
     """Bot for VK app."""
 
@@ -18,7 +19,6 @@ class VkBot(BotBase):
         print(self.token)
         self.api = API(token=self.token)
         self.bot = Bot(api=self.api)
-
 
         @self.bot.on.message()
         async def on_message(msg):
@@ -34,7 +34,7 @@ class VkBot(BotBase):
     def base_message_handler(self, msg):
         """
         Parse a message from chat and create an :class:`Message` object.
-        
+
         :param message: msg to handle
         """
         print("Chat ID:", msg.chat_id)
@@ -44,18 +44,17 @@ class VkBot(BotBase):
             return
 
         message = Message(str(msg.from_id),
-              datetime.date(1, 1, 1),
-              text=msg.text,
-              attachments=[])
-        
+                          datetime.date(1, 1, 1),
+                          text=msg.text,
+                          attachments=[])
         message.source = "vk"
-        
+
         self.outcoming.put_nowait(message)
 
     async def send(self, message):
         """
         Send a message to a chat.
-        
+
         :param message: message to send
         """
         await self.api.messages.send(random_id=0, peer_id=self.peer_id, message=message.text)

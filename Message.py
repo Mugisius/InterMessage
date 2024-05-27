@@ -1,6 +1,7 @@
 """Message and Attachment classes."""
 import requests
 
+
 class Message():
     """Message class."""
 
@@ -10,6 +11,7 @@ class Message():
         self.date = date
         self.text = text
         self.attachments = attachments
+
 
 class Attachment():
     """Attachment class."""

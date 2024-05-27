@@ -4,7 +4,9 @@ from Message import Message, Attachment
 import aiogram
 import logging
 
+
 logging.basicConfig(level=logging.ERROR)
+
 
 class TelegramBot(BotBase):
     """Bot for Telegram app."""
@@ -32,24 +34,24 @@ class TelegramBot(BotBase):
     def base_message_handler(self, msg):
         """
         Parse a message from chat and create an :class:`Message` object.
-        
+
         :param message: msg to handle
         """
         if msg.from_user == self.bot_user or msg.chat.id != self.chat_id:
             return
-        
+
         message = Message(msg.from_user.first_name,
-              msg.date,
-              text=msg.text,
-              attachments=[])
+                          msg.date,
+                          text=msg.text,
+                          attachments=[])
         message.source = "telegram"
-        
+
         self.outcoming.put_nowait(message)
 
     async def send(self, message):
         """
         Send a message to a chat.
-        
+
         :param message: message to send
         """
         await self.bot.send_message(self.chat_id, message.text)

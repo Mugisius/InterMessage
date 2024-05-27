@@ -15,7 +15,7 @@ class DiscordBot(BotBase):
         self.channelID = parameters['channel']
 
         self.token = parameters['token']
-    
+
         @self.client.event
         async def on_ready():
             """Get channel for operate."""
@@ -26,39 +26,37 @@ class DiscordBot(BotBase):
             """Recive a message from channel and handle it."""
             self.base_message_handler(message)
 
-
         print("Created DiscordBot")
-        
+
     async def start(self):
         """Start client."""
         await self.client.start(self.token)
-    
+
     def base_message_handler(self, msg):
         """
         Parse a message from chat and create an :class:`Message` object.
-        
+
         :param message: msg to handle
         """
         if msg.author == self.client.user:
             return
-        
+
         attachments = []
         for a in msg.attachments:
             attachments.append(Attachment(a.content_type, a.url))
 
         message = Message(msg.author.name,
-                      msg.created_at,
-                      text=msg.content,
-                      attachments=attachments)
+                          msg.created_at,
+                          text=msg.content,
+                          attachments=attachments)
         message.source = "discord"
-        
+
         self.outcoming.put_nowait(message)
 
     async def send(self, message):
         """
         Send a message to a chat.
-        
+
         :param message: message to send
         """
         await self.channel.send(message.text)
-    

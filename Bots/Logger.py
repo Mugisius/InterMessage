@@ -3,6 +3,7 @@ from Bots.BotBase import BotBase
 import asyncio
 import aiofiles as aiof
 
+
 class Logger(BotBase):
     """Logger for all sended messages."""
 
@@ -10,7 +11,7 @@ class Logger(BotBase):
         """Set up log file path from parameters."""
         self.path = parameters["logPath"]
         print("Created Logger")
-    
+
     async def start(self):
         """Do nothing."""
         while True:
@@ -23,13 +24,12 @@ class Logger(BotBase):
     async def send(self, message):
         """
         Write message to log file.
-        
+
         :param message: message to write
         """
         async with aiof.open(self.path, "a") as log_file:
-            log = ' '.join([ msg.date.strftime('%d-%m-%Y %H:%M:%S'),
-                             msg.source,
-                             msg.author,
-                             msg.text, '\n'])
+            log = ' '.join([message.date.strftime('%d-%m-%Y %H:%M:%S'),
+                            message.source,
+                            message.author,
+                            message.text, '\n'])
             await log_file.write(log)
-    

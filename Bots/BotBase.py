@@ -14,7 +14,7 @@ class BotBase(ABC):
     def base_message_handler(msg):
         """
         Parse a message from chat and create an :class:`Message` object.
-        
+
         :param message: msg to handle
         """
         print("BotBase abstract method is not implemented")
@@ -23,7 +23,7 @@ class BotBase(ABC):
     async def send(message):
         """
         Send a message to a chat.
-        
+
         :param message: message to send
         """
         print("BotBase abstract method is not implemented")

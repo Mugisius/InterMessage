@@ -13,6 +13,7 @@ import logging
 
 logging.basicConfig(level=logging.ERROR)
 
+
 def get_bot(messenger, parameters):
     """
     Get bot object by its string name.
@@ -93,6 +94,7 @@ class IMNode():
             message_in = await self.incoming.get()
             await self.bot.send(message_in)
 
+
 async def main(nodes, loops):
     """
     Start async loop for bots and message handlers.
@@ -107,6 +109,7 @@ async def main(nodes, loops):
 
     await asyncio.gather(*cycles, *loops)
 
+
 def get_args():
     """Parse command-line arguments."""
     parser = argparse.ArgumentParser(description="Приложение InterMessage для объединения чатов в разных мессенджерах")
@@ -114,6 +117,7 @@ def get_args():
 
     args = parser.parse_args()
     return args
+
 
 def validate(conf):
     """
@@ -123,6 +127,7 @@ def validate(conf):
     """
     # TODO Добавить валидацию конфигурации согласно спроектированному синтаксису
     pass
+
 
 def create_nodes_by_conf(conf_path):
     """
@@ -139,9 +144,10 @@ def create_nodes_by_conf(conf_path):
         for messenger in conf.values():
             nodes.append(IMNode(messenger['name'], messenger['parameters']))
             loops.append(nodes[-1].loop)
-        
+
         return nodes, loops
-    
+
+
 def connect_nodes(nodes):
     """
     Connect IMNodes.
@@ -151,13 +157,12 @@ def connect_nodes(nodes):
     for node in nodes:
         node.connect_to_other_nodes(nodes)
 
+
 if __name__ == "__main__":
     # args = get_args()
 
     logging.basicConfig(level=logging.ERROR)
 
-    nodes, loops = create_nodes_by_conf('ttt.yaml')#args.conf_path)
+    nodes, loops = create_nodes_by_conf('ttt.yaml')  # args.conf_path)
     connect_nodes(nodes)
     asyncio.run(main(nodes, loops))
-
-
