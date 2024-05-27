@@ -1,3 +1,4 @@
+"""Programm for resending messages between different chats."""
 import asyncio
 import argparse
 import yaml
@@ -13,7 +14,12 @@ import logging
 logging.basicConfig(level=logging.ERROR)
 
 def get_bot(messenger, parameters):
+    """
+    Get bot object by its string name.
 
+    :param messenger: string name of bot type
+    :param parameters: parameters of the bot
+    """
     match messenger:
         case "telegram":
             return TelegramBot(parameters)
@@ -25,10 +31,20 @@ def get_bot(messenger, parameters):
             return Logger(parameters)
 
 
-#узел сети InterMessage, содержит объект бота и очереди входных сообщений и выходных сообщений
 class IMNode():
+    """
+    Node of InterMessage network.
+
+    One node of InterMessage network
+    It contains bot object, queues of incoming and outcoming messages
+    """
 
     def __init__(self, messenger, parameters):
+        """Set up queues, bot object and async bot loop.
+
+        :param messenger: string name of bot type
+        :param parameters: parameters of the bot
+        """
         self.incoming = asyncio.Queue()
         self.outcoming = asyncio.Queue()
 
@@ -39,27 +55,51 @@ class IMNode():
         self.messenger = messenger
 
     def connect_to_other_nodes(self, all_nodes):
+        """
+        Set up a list of all IMNodes.
+
+        :param all_nodes: list of all IMNodes
+        """
         self.all_nodes = all_nodes
 
     async def send_to_node(self, message, node):
+        """
+        Send message to IMNode.
+
+        :param message: message to send
+        :param node: target IMNode
+        """
         await node.incoming.put(message)
 
     async def send_to_other_nodes(self, message):
+        """
+        Send message to all other IMNodes.
+
+        :param message: message to send
+        """
         for node in self.all_nodes:
             if node != self:
                 await self.send_to_node(translate(message, self.messenger, node.messenger), node)
 
     async def run_send(self):
+        """Coroutine for sending outcoming message to all other IMNodes."""
         while True:
             message_out = await self.outcoming.get()
             await self.send_to_other_nodes(message_out)
 
     async def run_rcv(self):
+        """Coroutine for sending incoming message to bot."""
         while True:
             message_in = await self.incoming.get()
             await self.bot.send(message_in)
 
 async def main(nodes, loops):
+    """
+    Start async loop for bots and message handlers.
+
+    :param nodes: list of all IMNodes
+    :param loops: loops of all bots
+    """
     cycles = []
     for node in nodes:
         cycles.append(node.run_send())
@@ -68,6 +108,7 @@ async def main(nodes, loops):
     await asyncio.gather(*cycles, *loops)
 
 def get_args():
+    """Parse command-line arguments."""
     parser = argparse.ArgumentParser(description="Приложение InterMessage для объединения чатов в разных мессенджерах")
     parser.add_argument("conf_path", help="Путь к файлу с конфигуацией ботов в мессенджерах", type=str)
 
@@ -75,10 +116,20 @@ def get_args():
     return args
 
 def validate(conf):
-    #TODO Добавить валидацию конфигурации согласно спроектированному синтаксису
+    """
+    Validate .yaml configuration file.
+
+    :param conf: .yaml file
+    """
+    # TODO Добавить валидацию конфигурации согласно спроектированному синтаксису
     pass
 
 def create_nodes_by_conf(conf_path):
+    """
+    Create IMNodes by configuration file.
+
+    :param conf_path: path to configuration .yaml file
+    """
     with open(conf_path) as conf_file:
         conf = yaml.load(conf_file, Loader=yaml.loader.SafeLoader)
         validate(conf)
@@ -92,6 +143,11 @@ def create_nodes_by_conf(conf_path):
         return nodes, loops
     
 def connect_nodes(nodes):
+    """
+    Connect IMNodes.
+
+    :param nodes: list of all IMNodes
+    """
     for node in nodes:
         node.connect_to_other_nodes(nodes)
 
