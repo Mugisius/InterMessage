@@ -1,6 +1,5 @@
 """Bot for VK app."""
 from Bots.BotBase import BotBase
-from _i18n import _
 from vkbottle.bot import Bot
 from vkbottle import API
 
@@ -32,8 +31,8 @@ class VkBot(BotBase):
         await self.bot.run_polling()
 
     def get_attachments(self):
+        """Do nothing."""
         return []
-
 
     async def base_message_handler(self, msg):
         """
@@ -41,26 +40,25 @@ class VkBot(BotBase):
 
         :param message: msg to handle
         """
-
         if msg.peer_id != self.peer_id:
             return
 
         msg_user = await self.bot.api.users.get(msg.from_id)
-        message = Message("vk", 
-            f"{msg_user[0].first_name} {msg_user[0].last_name}",
-            datetime.date(1, 1, 1),
-            text=msg.text,
-            attachments=[])
-        
+        message = Message("vk",
+                          f"{msg_user[0].first_name} {msg_user[0].last_name}",
+                          datetime.date(1, 1, 1),
+                          text=msg.text,
+                          attachments=[])
+
         self.outcoming.put_nowait(message)
 
     async def send(self, message):
         """
         Send a message to a chat.
-        
+
         :param message: message to send
         """
         if message.text:
-            await self.api.messages.send(random_id = 0, 
-                                        peer_id=self.peer_id, 
-                                        message=message.prefix + message.text) 
+            await self.api.messages.send(random_id=0,
+                                         peer_id=self.peer_id,
+                                         message=message.prefix + message.text)

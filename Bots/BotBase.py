@@ -1,6 +1,5 @@
 """Abstract class for all bots."""
 from abc import ABC, abstractmethod
-from _i18n import _
 
 
 class BotBase(ABC):
@@ -36,6 +35,11 @@ class BotBase(ABC):
 
     @abstractmethod
     def get_attachments(msg):
+        """
+        Get attachments of the message.
+
+        :param msg: message
+        """
         print("BotBase abstract method is not implemented")
 
     def set_queues(self, incoming, outcoming):

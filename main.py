@@ -2,6 +2,8 @@
 import asyncio
 import argparse
 import yaml
+import os
+import gettext
 
 from translator import translate
 from Bots.TelegramBot import TelegramBot
@@ -114,6 +116,7 @@ def get_args():
     """Parse command-line arguments."""
     parser = argparse.ArgumentParser(description="Приложение InterMessage для объединения чатов в разных мессенджерах")
     parser.add_argument("conf_path", help="Путь к файлу с конфигуацией ботов в мессенджерах", type=str)
+    parser.add_argument("--lang", help="Язык сообщений бота", type=str)
 
     args = parser.parse_args()
     return args
@@ -121,12 +124,23 @@ def get_args():
 
 def validate(conf):
     """
-    Validate .yaml configuration file.
+    Validate configuration from .yaml file.
 
-    :param conf: .yaml file
+    :param conf: dict loaded from .yaml file
     """
-    # TODO Добавить валидацию конфигурации согласно спроектированному синтаксису
-    pass
+    try:
+        for messenger in conf.values():
+            match messenger["name"]:
+                case "telegram" | "vk" | "discord":
+                    messenger["parameters"]["token"]
+                    messenger["parameters"]["channel"]
+                case "logger":
+                    messenger["parameters"]["logPath"]
+                case _:
+                    raise KeyError
+    except KeyError:
+        print("Invalid configuration file")
+        exit(0)
 
 
 def create_nodes_by_conf(conf_path):
@@ -159,10 +173,16 @@ def connect_nodes(nodes):
 
 
 if __name__ == "__main__":
-    # args = get_args()
+    translation = gettext.translation("IM", os.path.abspath('./po'), fallback=True)
+    translation.install()
+
+    args = get_args()
 
     logging.basicConfig(level=logging.ERROR)
 
-    nodes, loops = create_nodes_by_conf('ttt.yaml')  # args.conf_path)
+    translation = gettext.translation("IM", os.path.abspath('./po'), languages=[args.lang], fallback=True)
+    translation.install()
+
+    nodes, loops = create_nodes_by_conf(args.conf_path)
     connect_nodes(nodes)
     asyncio.run(main(nodes, loops))
