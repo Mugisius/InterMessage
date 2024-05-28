@@ -19,7 +19,7 @@ class Logger(BotBase):
 
     def get_attachments(self):
         pass
-    
+
     def base_message_handler(self, message):
         """Do nothing."""
         pass
@@ -31,14 +31,14 @@ class Logger(BotBase):
         :param message: message to write
         """
         async with aiof.open(self.path, "a") as log_file:
-            if message.text == None:
+            if message.text is None:
                 text = "Has no text"
             else:
                 text = message.text
 
-            log = ' '.join([ message.date.strftime('%d-%m-%Y %H:%M:%S'),
-                             message.source,
-                             message.author,
-                             text, '\n'])
+            log = ' '.join([message.date.strftime('%d-%m-%Y %H:%M:%S'),
+                            message.source,
+                            message.author,
+                            text, '\n'])
 
             await log_file.write(log)
