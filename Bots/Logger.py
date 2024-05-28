@@ -17,7 +17,10 @@ class Logger(BotBase):
         while True:
             await asyncio.sleep(0)
 
-    def base_message_handler(self, msg):
+    def get_attachments(self):
+        pass
+    
+    def base_message_handler(self, message):
         """Do nothing."""
         pass
 
@@ -28,8 +31,14 @@ class Logger(BotBase):
         :param message: message to write
         """
         async with aiof.open(self.path, "a") as log_file:
-            log = ' '.join([message.date.strftime('%d-%m-%Y %H:%M:%S'),
-                            message.source,
-                            message.author,
-                            message.text, '\n'])
+            if message.text == None:
+                text = "Has no text"
+            else:
+                text = message.text
+
+            log = ' '.join([ message.date.strftime('%d-%m-%Y %H:%M:%S'),
+                             message.source,
+                             message.author,
+                             text, '\n'])
+
             await log_file.write(log)

@@ -32,6 +32,14 @@ class DiscordBot(BotBase):
         """Start client."""
         await self.client.start(self.token)
 
+
+    def get_attachments(self, msg):
+        attachments = []
+        for a in msg.attachments:
+            attachments.append(Attachment(a.content_type, a.url))
+        
+        return attachments
+    
     def base_message_handler(self, msg):
         """
         Parse a message from chat and create an :class:`Message` object.
@@ -40,17 +48,15 @@ class DiscordBot(BotBase):
         """
         if msg.author == self.client.user:
             return
+        
+        attachments = self.get_attachments(msg)
 
-        attachments = []
-        for a in msg.attachments:
-            attachments.append(Attachment(a.content_type, a.url))
-
-        message = Message(msg.author.name,
-                          msg.created_at,
-                          text=msg.content,
-                          attachments=attachments)
-        message.source = "discord"
-
+        message = Message("discord",
+            msg.author.name,
+            msg.created_at,
+            text=msg.content,
+            attachments=attachments)
+        
         self.outcoming.put_nowait(message)
 
     async def send(self, message):
@@ -59,4 +65,10 @@ class DiscordBot(BotBase):
 
         :param message: message to send
         """
-        await self.channel.send(message.text)
+        
+        if message.text:
+            await self.channel.send(message.prefix + message.text)
+
+        for a in message.attachments:
+            await self.channel.send(message.prefix, file=discord.File(a.file, filename=a.filename))
+    
