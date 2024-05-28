@@ -124,12 +124,23 @@ def get_args():
 
 def validate(conf):
     """
-    Validate .yaml configuration file.
+    Validate configuration from .yaml file.
 
-    :param conf: .yaml file
+    :param conf: dict loaded from .yaml file
     """
-    # TODO Добавить валидацию конфигурации согласно спроектированному синтаксису
-    pass
+    try:
+        for messenger in conf.values():
+            match messenger["name"]:
+                case "telegram" | "vk" | "discord":
+                    messenger["parameters"]["token"]
+                    messenger["parameters"]["channel"]
+                case "logger":
+                    messenger["parameters"]["logPath"]
+                case _:
+                    raise KeyError
+    except KeyError:
+        print("Invalid configuration file")
+        exit(0)
 
 
 def create_nodes_by_conf(conf_path):
