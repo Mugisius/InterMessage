@@ -32,14 +32,14 @@ class Logger(BotBase):
         :param message: message to write
         """
         async with aiof.open(self.path, "a") as log_file:
-            if msg.text == None:
+            if message.text == None:
                 text = "Has no text"
             else:
-                text = msg.text
+                text = message.text
 
-            log = ' '.join([ msg.date.strftime('%d-%m-%Y %H:%M:%S'),
-                             msg.source,
-                             msg.author,
+            log = ' '.join([ message.date.strftime('%d-%m-%Y %H:%M:%S'),
+                             message.source,
+                             message.author,
                              text, '\n'])
 
             await log_file.write(log)

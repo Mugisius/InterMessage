@@ -23,7 +23,7 @@ class VkBot(BotBase):
         @self.bot.on.message()
         async def on_message(msg):
             """Recive a message from channel and handle it."""
-            self.base_message_handler(msg)
+            await self.base_message_handler(msg)
 
         print(_("Created VkBot"))
 
@@ -35,8 +35,7 @@ class VkBot(BotBase):
         return []
 
 
-    def base_message_handler(self, msg):
-
+    async def base_message_handler(self, msg):
         """
         Parse a message from chat and create an :class:`Message` object.
 
@@ -46,8 +45,9 @@ class VkBot(BotBase):
         if msg.peer_id != self.peer_id:
             return
 
+        msg_user = await self.bot.api.users.get(msg.from_id)
         message = Message("vk", 
-            str(msg.from_id),
+            f"{msg_user[0].first_name} {msg_user[0].last_name}",
             datetime.date(1, 1, 1),
             text=msg.text,
             attachments=[])
@@ -61,4 +61,6 @@ class VkBot(BotBase):
         :param message: message to send
         """
         if message.text:
-            await self.api.messages.send(random_id = 0, peer_id=self.peer_id, message=message.text) 
+            await self.api.messages.send(random_id = 0, 
+                                        peer_id=self.peer_id, 
+                                        message=message.prefix + message.text) 

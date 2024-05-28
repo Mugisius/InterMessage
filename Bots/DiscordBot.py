@@ -68,10 +68,8 @@ class DiscordBot(BotBase):
         """
         
         if message.text:
-            b=0
             await self.channel.send(message.prefix + message.text)
 
         for a in message.attachments:
-            b=0
             await self.channel.send(message.prefix, file=discord.File(a.file, filename=a.filename))
     
