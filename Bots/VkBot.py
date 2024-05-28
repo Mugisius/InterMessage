@@ -31,6 +31,7 @@ class VkBot(BotBase):
         await self.bot.run_polling()
 
     def get_attachments(self):
+        """Do nothing."""
         return []
 
     async def base_message_handler(self, msg):
@@ -39,7 +40,6 @@ class VkBot(BotBase):
 
         :param message: msg to handle
         """
-
         if msg.peer_id != self.peer_id:
             return
 

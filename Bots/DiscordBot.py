@@ -33,6 +33,11 @@ class DiscordBot(BotBase):
         await self.client.start(self.token)
 
     def get_attachments(self, msg):
+        """
+        Get attachments of the message.
+
+        :param msg: message
+        """
         attachments = []
         for a in msg.attachments:
             attachments.append(Attachment(a.content_type, a.url))
@@ -64,7 +69,6 @@ class DiscordBot(BotBase):
 
         :param message: message to send
         """
-
         if message.text:
             await self.channel.send(message.prefix + message.text)
 

@@ -18,6 +18,7 @@ class Logger(BotBase):
             await asyncio.sleep(0)
 
     def get_attachments(self):
+        """Do nothing."""
         pass
 
     def base_message_handler(self, message):

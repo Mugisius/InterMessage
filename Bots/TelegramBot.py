@@ -22,23 +22,31 @@ class TelegramBot(BotBase):
         @self.dp.message_handler(content_types=["photo", "text", "audio", "video"])
         async def on_message(message):
             """Recive a message from channel and handle it."""
-
             await self.base_message_handler(message)
 
         print(_("Created TelegramBot"))
 
     async def start(self):
-
         """Start client."""
         self.bot_user = await self.bot.get_me()
         await self.dp.start_polling(self.bot)
 
     async def get_attachment_file(self, attach_object):
+        """
+        Get the file from attachment object.
+
+        :param attach_object: attachment object
+        """
         file_stream = await self.bot.get_file(attach_object['file_id'])
         file = await self.bot.download_file(file_stream.file_path)
         return file
 
     async def get_attachments(self, msg):
+        """
+        Get attachments of the message.
+
+        :param msg: message
+        """
         attachments = []
         if msg.photo:
             photo = msg.photo[-1]
@@ -76,9 +84,9 @@ class TelegramBot(BotBase):
     async def send(self, message):
         """
         Send a message to a chat.
+
         :param message: message to send
         """
-
         if message.text:
             await self.bot.send_message(self.chat_id, message.prefix + message.text)
 
