@@ -34,6 +34,10 @@ class BotBase(ABC):
         """Start client."""
         print(_("BotBase abstract method is not implemented"))
 
+    @abstractmethod
+    def get_attachments(msg):
+        print("BotBase abstract method is not implemented")
+
     def set_queues(self, incoming, outcoming):
         """Set up incoming and outcoming queues."""
         self.incoming = incoming
