@@ -1,6 +1,7 @@
 """Bot for Discord app."""
 from Bots.BotBase import BotBase
 from Message import Message, Attachment
+from _i18n import _
 import discord
 
 
@@ -26,7 +27,7 @@ class DiscordBot(BotBase):
             """Recive a message from channel and handle it."""
             self.base_message_handler(message)
 
-        print("Created DiscordBot")
+        print(_("Created DiscordBot"))
 
     async def start(self):
         """Start client."""

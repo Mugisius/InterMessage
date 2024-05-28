@@ -1,0 +1,41 @@
+# Russian (Russia) translations for InterMessage.
+# Copyright (C) 2024 Kuk&Tovka
+# This file is distributed under the same license as the InterMessage project.
+# Akinin Evgeniy <magisius@yandex.ru>, 2024.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 0.1.0\n"
+"Report-Msgid-Bugs-To: magisius@yandex.ru\n"
+"POT-Creation-Date: 2024-05-28 11:37+0300\n"
+"PO-Revision-Date: 2024-05-27 20:15+0300\n"
+"Last-Translator: Akinin Evgeniy <magisius@yandex.ru>\n"
+"Language: ru_RU\n"
+"Language-Team: ru_RU <LL@li.org>\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: Bots/BotBase.py:12 Bots/BotBase.py:21 Bots/BotBase.py:30 Bots/BotBase.py:35
+msgid "BotBase abstract method is not implemented"
+msgstr "Абстрактный метод класса BotBase не реализован"
+
+#: Bots/DiscordBot.py:30
+msgid "Created DiscordBot"
+msgstr "Создан DiscordBot"
+
+#: Bots/Logger.py:14
+msgid "Created Logger"
+msgstr "Создан Logger"
+
+#: Bots/TelegramBot.py:28
+msgid "Created TelegramBot"
+msgstr "Создан TelegramBot"
+
+#: Bots/VkBot.py:29
+msgid "Created VkBot"
+msgstr "Создан VkBot"
+

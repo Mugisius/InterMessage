@@ -1,5 +1,6 @@
 """Bot for VK app."""
 from Bots.BotBase import BotBase
+from _i18n import _
 from vkbottle.bot import Bot
 from vkbottle import API
 
@@ -25,7 +26,7 @@ class VkBot(BotBase):
             """Recive a message from channel and handle it."""
             self.base_message_handler(msg)
 
-        print("Created VkBot")
+        print(_("Created VkBot"))
 
     async def start(self):
         """Start client."""

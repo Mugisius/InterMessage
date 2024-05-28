@@ -1,5 +1,6 @@
 """Abstract class for all bots."""
 from abc import ABC, abstractmethod
+from _i18n import _
 
 
 class BotBase(ABC):
@@ -8,7 +9,7 @@ class BotBase(ABC):
     @abstractmethod
     def __init__():
         """Set up a bot."""
-        print("BotBase abstract method is not implemented")
+        print(_("BotBase abstract method is not implemented"))
 
     @abstractmethod
     def base_message_handler(msg):
@@ -17,7 +18,7 @@ class BotBase(ABC):
 
         :param message: msg to handle
         """
-        print("BotBase abstract method is not implemented")
+        print(_("BotBase abstract method is not implemented"))
 
     @abstractmethod
     async def send(message):
@@ -26,12 +27,12 @@ class BotBase(ABC):
 
         :param message: message to send
         """
-        print("BotBase abstract method is not implemented")
+        print(_("BotBase abstract method is not implemented"))
 
     @abstractmethod
     async def start():
         """Start client."""
-        print("BotBase abstract method is not implemented")
+        print(_("BotBase abstract method is not implemented"))
 
     def set_queues(self, incoming, outcoming):
         """Set up incoming and outcoming queues."""

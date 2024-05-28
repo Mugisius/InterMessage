@@ -1,5 +1,6 @@
 """Logger for all sended messages."""
 from Bots.BotBase import BotBase
+from _i18n import _
 import asyncio
 import aiofiles as aiof
 
@@ -10,7 +11,7 @@ class Logger(BotBase):
     def __init__(self, parameters):
         """Set up log file path from parameters."""
         self.path = parameters["logPath"]
-        print("Created Logger")
+        print(_("Created Logger"))
 
     async def start(self):
         """Do nothing."""
