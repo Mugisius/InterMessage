@@ -1,6 +1,5 @@
 """Bot for VK app."""
 from Bots.BotBase import BotBase
-from _i18n import _
 from vkbottle.bot import Bot
 from vkbottle import API
 

@@ -1,6 +1,5 @@
 """Abstract class for all bots."""
 from abc import ABC, abstractmethod
-from _i18n import _
 
 
 class BotBase(ABC):
