@@ -10,15 +10,23 @@ class Logger(BotBase):
     async def start(self):
         while True:
             await asyncio.sleep(0)
+
+    def get_attachments(self):
+        pass
     
     def base_message_handler(self, message):
         pass
 
     async def send(self, msg):
         async with aiof.open(self.path, "a") as log_file:
+            if msg.text == None:
+                text = "Has no text"
+            else:
+                text = msg.text
+
             log = ' '.join([ msg.date.strftime('%d-%m-%Y %H:%M:%S'),
                              msg.source,
                              msg.author,
-                             msg.text, '\n'])
+                             text, '\n'])
             await log_file.write(log)
     
