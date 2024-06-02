@@ -1,5 +1,5 @@
 """Logger for all sended messages."""
-from Bots.BotBase import BotBase
+from .BotBase import BotBase
 import asyncio
 import aiofiles as aiof
 

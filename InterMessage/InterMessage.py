@@ -5,11 +5,10 @@ import yaml
 import os
 import gettext
 
-from translator import translate
-from Bots.TelegramBot import TelegramBot
-from Bots.VkBot import VkBot
-from Bots.DiscordBot import DiscordBot
-from Bots.Logger import Logger
+from .Bots.TelegramBot import TelegramBot
+from .Bots.VkBot import VkBot
+from .Bots.DiscordBot import DiscordBot
+from .Bots.Logger import Logger
 
 import logging
 
@@ -82,7 +81,7 @@ class IMNode():
         """
         for node in self.all_nodes:
             if node != self:
-                await self.send_to_node(translate(message, self.messenger, node.messenger), node)
+                await self.send_to_node(message, node)
 
     async def run_send(self):
         """Coroutine for sending outcoming message to all other IMNodes."""
@@ -97,7 +96,7 @@ class IMNode():
             await self.bot.send(message_in)
 
 
-async def main(nodes, loops):
+async def gather(nodes, loops):
     """
     Start async loop for bots and message handlers.
 
@@ -172,17 +171,26 @@ def connect_nodes(nodes):
         node.connect_to_other_nodes(nodes)
 
 
-if __name__ == "__main__":
-    translation = gettext.translation("IM", os.path.abspath('./po'), fallback=True)
+def main():
+    """Call main application."""
+    translation = gettext.translation("IM", os.path.dirname(__file__), fallback=True)
     translation.install()
 
     args = get_args()
 
     logging.basicConfig(level=logging.ERROR)
 
-    translation = gettext.translation("IM", os.path.abspath('./po'), languages=[args.lang], fallback=True)
+    if args.lang:
+        langs = [args.lang]
+    else:
+        langs = None
+
+    translation = gettext.translation("IM", os.path.dirname(__file__), langs, fallback=True)
     translation.install()
 
     nodes, loops = create_nodes_by_conf(args.conf_path)
     connect_nodes(nodes)
-    asyncio.run(main(nodes, loops))
+    try:
+        asyncio.run(gather(nodes, loops))
+    except KeyboardInterrupt:
+        print("Received exit, exiting")

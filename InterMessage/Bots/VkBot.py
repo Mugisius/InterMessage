@@ -1,9 +1,9 @@
 """Bot for VK app."""
-from Bots.BotBase import BotBase
+from .BotBase import BotBase
 from vkbottle.bot import Bot
 from vkbottle import API
 
-from Message import Message, Attachment
+from ..Message import Message, Attachment
 
 import datetime
 

@@ -1,6 +1,6 @@
 """Bot for Telegram app."""
-from Bots.BotBase import BotBase
-from Message import Message, Attachment
+from .BotBase import BotBase
+from ..Message import Message, Attachment
 import aiogram
 import logging
 

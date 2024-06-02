@@ -1,6 +1,6 @@
 Logger
 ~~~~~~
 
-.. automodule:: Bots.Logger
+.. automodule:: InterMessage.Bots.Logger
     :members:
     :private-members:
