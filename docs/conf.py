@@ -12,7 +12,7 @@ sys.path.insert(0, os.path.abspath('..'))
 project = 'InterMessage'
 copyright = '2024, Evgeniy Akinin, GardenOfOctopus'
 author = 'Evgeniy Akinin, GardenOfOctopus'
-release = '6.6.6'
+release = '0.0.5'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
@@ -21,7 +21,6 @@ extensions = ['sphinx.ext.autodoc']
 
 templates_path = ['_templates']
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
-
 
 
 # -- Options for HTML output -------------------------------------------------

@@ -10,7 +10,7 @@ Welcome to InterMessage's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-   API
+   InterMessage
    TelegramBot
    DiscordBot
    VkBot

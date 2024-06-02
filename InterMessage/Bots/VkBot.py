@@ -1,11 +1,10 @@
 """Bot for VK app."""
-
+from .BotBase import BotBase
 from vkbottle.bot import Bot
 from vkbottle import API
 from vkbottle import PhotoMessageUploader, AudioUploader, VideoUploader
 
-from Message import Message, Attachment
-from Bots.BotBase import BotBase
+from ..Message import Message, Attachment
 
 import datetime
 
@@ -66,7 +65,7 @@ class VkBot(BotBase):
         if msg.peer_id != self.peer_id:
             return
         
-        attachments = [] #self.get_attachments(msg)
+        attachments = [] # self.get_attachments(msg)
 
         msg_user = await self.bot.api.users.get(msg.from_id)
         message = Message("vk",
@@ -85,8 +84,8 @@ class VkBot(BotBase):
         """
         if message.text:
             await self.api.messages.send(random_id=0,
-                                        peer_id=self.peer_id,
-                                        message=message.prefix + message.text)
+                                         peer_id=self.peer_id,
+                                         message=message.prefix + message.text)
             
         for a in message.attachments:
             if (a.type).startswith("image"):
@@ -97,6 +96,6 @@ class VkBot(BotBase):
                 file = await self.video_uploader.upload(a.file, peer_id=self.peer_id)
 
             await self.api.messages.send(random_id=0,
-                                        peer_id=self.peer_id,
-                                        message=message.prefix, 
-                                        attachment=file)
+                                         peer_id=self.peer_id,
+                                         message=message.prefix, 
+                                         attachment=file)

@@ -1,6 +1,6 @@
 VkBot
 ~~~~~
 
-.. automodule:: Bots.VkBot
+.. automodule:: InterMessage.Bots.VkBot
     :members:
     :private-members:

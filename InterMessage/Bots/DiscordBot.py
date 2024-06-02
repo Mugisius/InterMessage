@@ -1,6 +1,6 @@
 """Bot for Discord app."""
-from Bots.BotBase import BotBase
-from Message import Message, Attachment
+from .BotBase import BotBase
+from ..Message import Message, Attachment
 import discord
 
 
