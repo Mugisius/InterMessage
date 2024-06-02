@@ -69,6 +69,8 @@ class DiscordBot(BotBase):
 
         :param message: message to send
         """
+        if not hasattr(self, 'channel'):
+            return
         if message.text:
             await self.channel.send(message.prefix + message.text)
 
