@@ -1,0 +1,5 @@
+DiscordBot:
+  name: fake_discord_bot
+  parameters:
+    token: token1
+    channel: 0
