@@ -5,7 +5,6 @@ import yaml
 import os
 import gettext
 
-from translator import translate
 from Bots.TelegramBot import TelegramBot
 from Bots.VkBot import VkBot
 from Bots.DiscordBot import DiscordBot
@@ -82,7 +81,7 @@ class IMNode():
         """
         for node in self.all_nodes:
             if node != self:
-                await self.send_to_node(translate(message, self.messenger, node.messenger), node)
+                await self.send_to_node(message, node)
 
     async def run_send(self):
         """Coroutine for sending outcoming message to all other IMNodes."""
@@ -129,6 +128,9 @@ def validate(conf):
     :param conf: dict loaded from .yaml file
     """
     try:
+        if not conf:
+            raise KeyError
+        
         for messenger in conf.values():
             match messenger["name"]:
                 case "telegram" | "vk" | "discord":
@@ -139,9 +141,9 @@ def validate(conf):
                 case _:
                     raise KeyError
     except KeyError:
-        print("Invalid configuration file")
-        exit(0)
-
+        return False
+    
+    return True
 
 def create_nodes_by_conf(conf_path):
     """
@@ -151,7 +153,10 @@ def create_nodes_by_conf(conf_path):
     """
     with open(conf_path) as conf_file:
         conf = yaml.load(conf_file, Loader=yaml.loader.SafeLoader)
-        validate(conf)
+
+        if not validate(conf):
+            print("Invalid configuration file")
+            exit(0)
 
         nodes = []
         loops = []
