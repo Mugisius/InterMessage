@@ -1,0 +1,7 @@
+doit
+sphinx
+flake8
+pydocstyle
+babel
+build
+wheel

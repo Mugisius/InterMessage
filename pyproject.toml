@@ -1,0 +1,26 @@
+[project]
+name = "InterMessage"
+version = "0.0.5"
+description = "Graduate project for PythonDevelopment2024 course"
+readme = "README.md"
+requires-python = ">=3.12"
+authors = [
+ {name = "Akinin Evgeniy", email = "olympiads@inbox.ru"},
+ {name = "Ruseckiy Ilya", email = "s02190702@gse.cs.msu.ru"}
+]
+scripts = {InterMessage = "InterMessage.InterMessage:main"}
+
+dynamic = ["dependencies"]
+
+[tool.setuptools.dynamic]
+dependencies = { file = "requirements.txt" }
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.package-dir]
+InterMessage = "InterMessage"
+
+[tool.setuptools.package-data]
+InterMessage = ["*/*/*.mo"]
