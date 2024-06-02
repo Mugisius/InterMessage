@@ -128,6 +128,9 @@ def validate(conf):
     :param conf: dict loaded from .yaml file
     """
     try:
+        if not conf:
+            raise KeyError
+        
         for messenger in conf.values():
             match messenger["name"]:
                 case "telegram" | "vk" | "discord":
@@ -138,8 +141,9 @@ def validate(conf):
                 case _:
                     raise KeyError
     except KeyError:
-        print("Invalid configuration file")
-        exit(0)
+        return False
+    
+    return True
 
 
 def create_nodes_by_conf(conf_path):
@@ -150,7 +154,10 @@ def create_nodes_by_conf(conf_path):
     """
     with open(conf_path) as conf_file:
         conf = yaml.load(conf_file, Loader=yaml.loader.SafeLoader)
-        validate(conf)
+
+        if not validate(conf):
+            print("Invalid configuration file")
+            exit(0)
 
         nodes = []
         loops = []
