@@ -80,6 +80,9 @@ def task_test():
         'actions': [
             'python tests/TestValidate.py -v',
             'python tests/TestAttachment.py -v',
+            'python tests/TestCreateNodes.py -v',
+            'python tests/TestGetBot.py -v',
+            'python tests/TestDisHandler.py -v',
         ],
     }
 
