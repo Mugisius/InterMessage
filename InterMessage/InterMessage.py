@@ -211,3 +211,9 @@ def main():
         asyncio.run(gather(nodes, loops))
     except KeyboardInterrupt:
         print(_("Received exit, exiting"))
+
+        for n in nodes:
+            try:
+                asyncio.run(n.bot.bot.session.close())
+            except AttributeError:
+                pass
