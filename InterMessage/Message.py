@@ -1,6 +1,8 @@
 """Message and Attachment classes."""
 import requests
 
+def _(smth):
+    return smth
 
 class Message():
     """Message class."""
