@@ -40,7 +40,7 @@ class BotBase(ABC):
 
         :param msg: message
         """
-        print("BotBase abstract method is not implemented")
+        print(_("BotBase abstract method is not implemented"))
 
     def set_queues(self, incoming, outcoming):
         """Set up incoming and outcoming queues."""

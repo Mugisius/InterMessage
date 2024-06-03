@@ -64,8 +64,8 @@ class VkBot(BotBase):
         """
         if msg.peer_id != self.peer_id:
             return
-        
-        attachments = [] # self.get_attachments(msg)
+
+        attachments = []  # self.get_attachments(msg)
 
         msg_user = await self.bot.api.users.get(msg.from_id)
         message = Message("vk",
@@ -86,7 +86,7 @@ class VkBot(BotBase):
             await self.api.messages.send(random_id=0,
                                          peer_id=self.peer_id,
                                          message=message.prefix + message.text)
-            
+
         for a in message.attachments:
             if (a.type).startswith("image"):
                 file = await self.photo_uploader.upload(a.file, peer_id=self.peer_id)
@@ -97,5 +97,5 @@ class VkBot(BotBase):
 
             await self.api.messages.send(random_id=0,
                                          peer_id=self.peer_id,
-                                         message=message.prefix, 
+                                         message=message.prefix,
                                          attachment=file)

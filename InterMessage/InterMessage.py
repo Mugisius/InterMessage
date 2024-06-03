@@ -113,9 +113,19 @@ async def gather(nodes, loops):
 
 def get_args():
     """Parse command-line arguments."""
-    parser = argparse.ArgumentParser(description="Приложение InterMessage для объединения чатов в разных мессенджерах")
-    parser.add_argument("conf_path", help="Путь к файлу с конфигуацией ботов в мессенджерах", type=str)
-    parser.add_argument("--lang", help="Язык сообщений бота", type=str)
+    parser = argparse.ArgumentParser(
+        description=_("InterMessage application for connecting chats in different messengers")
+    )
+    parser.add_argument(
+        "conf_path",
+        help=_("The path to the file with the configuration of bots in messengers"),
+        type=str
+    )
+    parser.add_argument(
+        "--lang",
+        help=_("The language of the bot's messages"),
+        type=str
+    )
 
     args = parser.parse_args()
     return args
@@ -130,7 +140,7 @@ def validate(conf):
     try:
         if not conf:
             raise KeyError
-        
+
         for messenger in conf.values():
             match messenger["name"]:
                 case "telegram" | "vk" | "discord":
@@ -142,7 +152,7 @@ def validate(conf):
                     raise KeyError
     except KeyError:
         return False
-    
+
     return True
 
 
@@ -156,7 +166,7 @@ def create_nodes_by_conf(conf_path):
         conf = yaml.load(conf_file, Loader=yaml.loader.SafeLoader)
 
         if not validate(conf):
-            print("Invalid configuration file")
+            print(_("Invalid configuration file"))
             exit(0)
 
         nodes = []
@@ -200,4 +210,10 @@ def main():
     try:
         asyncio.run(gather(nodes, loops))
     except KeyboardInterrupt:
-        print("Received exit, exiting")
+        print(_("Received exit, exiting"))
+
+        for n in nodes:
+            try:
+                asyncio.run(n.bot.bot.session.close())
+            except AttributeError:
+                pass

@@ -33,7 +33,7 @@ class Logger(BotBase):
         """
         async with aiof.open(self.path, "a") as log_file:
             if message.text is None:
-                text = "Has no text"
+                text = _("Has no text")
             else:
                 text = message.text
 

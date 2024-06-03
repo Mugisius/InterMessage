@@ -10,7 +10,7 @@ class Message():
         self.source = source
         self.author = author
         self.date = date
-        self.prefix = f"{author} from {source}: "
+        self.prefix = _("{} from {}: ").format(author, source)
         self.text = text
         self.attachments = attachments
 

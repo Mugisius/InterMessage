@@ -20,8 +20,34 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.15.0\n"
 
+#: InterMessage/InterMessage.py:117
+msgid "InterMessage application for connecting chats in different messengers"
+msgstr "Приложение InterMessage для объединения чатов в разных мессенджерах"
+
+#: InterMessage/InterMessage.py:121
+msgid "The path to the file with the configuration of bots in messengers"
+msgstr "Путь к файлу с конфигуацией ботов в мессенджерах"
+
+#: InterMessage/InterMessage.py:126
+#, fuzzy
+msgid "The language of the bot's messages"
+msgstr "Язык сообщений ботов"
+
+#: InterMessage/InterMessage.py:169
+msgid "Invalid configuration file"
+msgstr "Неверный формат файла конфигурации"
+
+#: InterMessage/InterMessage.py:213
+msgid "Received exit, exiting"
+msgstr "Получен сигнал завершения. Программа завершается"
+
+#: InterMessage/Message.py:13
+msgid "{} from {}: "
+msgstr "{} из {}: "
+
 #: InterMessage/Bots/BotBase.py:11 InterMessage/Bots/BotBase.py:20
 #: InterMessage/Bots/BotBase.py:29 InterMessage/Bots/BotBase.py:34
+#: InterMessage/Bots/BotBase.py:43
 msgid "BotBase abstract method is not implemented"
 msgstr "Абстрактный метод класса BotBase не реализован"
 
@@ -33,11 +59,15 @@ msgstr "Создан DiscordBot"
 msgid "Created Logger"
 msgstr "Создан Logger"
 
+#: InterMessage/Bots/Logger.py:36
+msgid "Has no text"
+msgstr "Без текста"
+
 #: InterMessage/Bots/TelegramBot.py:27
 msgid "Created TelegramBot"
 msgstr "Создан TelegramBot"
 
-#: InterMessage/Bots/VkBot.py:27
+#: InterMessage/Bots/VkBot.py:31
 msgid "Created VkBot"
 msgstr "Создан VkBot"
 
