@@ -1,0 +1,19 @@
+DiscordBot:
+  name: discord
+  parameters:
+    token: token1
+    channel: 0
+TelegramBot:
+  name: telegram
+  parameters:
+    token: token2
+    channel: 0
+VkBot:
+  name: vk
+  parameters:
+    token: token3
+    channel: 0
+Logger:
+  name: logger
+  parameters:
+    logPath: log.txt
