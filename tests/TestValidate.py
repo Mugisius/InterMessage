@@ -4,7 +4,8 @@ import os
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
-from main import validate
+from InterMessage.InterMessage import validate
+
 
 class TestValidate(unittest.TestCase):
 
@@ -35,6 +36,7 @@ class TestValidate(unittest.TestCase):
 
     def test_conf5(self):
         self.assertEqual(validate(TestValidate.conf5), False)
-       
+
+
 if __name__ == "__main__":
     unittest.main()
