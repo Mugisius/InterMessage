@@ -3,6 +3,7 @@ from .BotBase import BotBase
 from ..Message import Message, Attachment
 import discord
 
+
 class DiscordBot(BotBase):
     """Bot for Discord app."""
 
@@ -11,7 +12,7 @@ class DiscordBot(BotBase):
         intents = discord.Intents.all()
         intents.message_content = True
         self.client = discord.Client(intents=intents)
-        
+
         self.channel = parameters['channel']
         self.token = parameters['token']
 
@@ -49,7 +50,6 @@ class DiscordBot(BotBase):
 
         :param message: msg to handle
         """
-
         if self.client.user and msg.author == self.client.user:
             return
 
