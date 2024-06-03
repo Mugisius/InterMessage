@@ -12,14 +12,14 @@ class DiscordBot(BotBase):
         intents = discord.Intents.all()
         intents.message_content = True
         self.client = discord.Client(intents=intents)
-        self.channelID = parameters['channel']
-
+        
+        self.channel = parameters['channel']
         self.token = parameters['token']
 
         @self.client.event
         async def on_ready():
             """Get channel for operate."""
-            self.channel = await self.client.fetch_channel(self.channelID)
+            self.channel = await self.client.fetch_channel(self.channel)
 
         @self.client.event
         async def on_message(message):
@@ -50,7 +50,8 @@ class DiscordBot(BotBase):
 
         :param message: msg to handle
         """
-        if msg.author == self.client.user:
+
+        if self.client.user and msg.author == self.client.user:
             return
 
         attachments = self.get_attachments(msg)
