@@ -9,6 +9,12 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 from InterMessage.InterMessage import get_bot
 import InterMessage
 
+def nothing(smth):
+    return smth
+
+import builtins
+builtins.__dict__['_']=nothing
+
 class TestGetBot(unittest.TestCase):
 
     @classmethod

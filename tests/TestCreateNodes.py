@@ -9,6 +9,12 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 from InterMessage.InterMessage import create_nodes_by_conf
 import InterMessage
 
+def nothing(smth):
+    return smth
+
+import builtins
+builtins.__dict__['_']=nothing
+
 class TestCreateNodes(unittest.TestCase):
 
     def check_nodes(self, conf, nodes):
