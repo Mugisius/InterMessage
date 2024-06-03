@@ -1,0 +1,19 @@
+DiscordBot:
+  name: discord
+  parameters:
+    token: MTI0MzEzODk2MTcxMTU2Njg2OA.GsTQJX._6KzD5u8ZpIYzdOH8ZiKtyAw5-ex6M5WX8NmGc
+    channel: 1243144155056701551
+TelegramBot:
+  name: telegram
+  parameters:
+    token: 7004073311:AAE9OohtB3nkF6WhIfzUSYY6Wvfw-pMEpOY
+    channel: -4229712290
+VkBot:
+  name: vk
+  parameters:
+    token: vk1.a.-PDoWe1RUfwtMFnr-eEANIheLmiMmRzeh_JHyMp3sgjPguB_PszRMIPd_Hv6EYpR1aTT2YQ3kt8LuHXMAA3vQouaO6tD1GfcQH2xjczzia-m7886JVIqUepoaco5jrcm4yaCYcsAeAA3VGsNpmt1mUJbWxvWB5XoRooMMtSkbXtvaZ3k5jwFk0XZ-brpaeElv0qzX7IQF_SX6jA113pL9w
+    channel: 2000000001
+Logger:
+  name: logger
+  parameters:
+    logPath: log.txt

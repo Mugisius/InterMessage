@@ -3,6 +3,8 @@ from .BotBase import BotBase
 import asyncio
 import aiofiles as aiof
 
+def _(smth):
+    return smth
 
 class Logger(BotBase):
     """Logger for all sended messages."""

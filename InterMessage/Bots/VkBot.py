@@ -8,6 +8,8 @@ from ..Message import Message, Attachment
 
 import datetime
 
+def _(smth):
+    return smth
 
 class VkBot(BotBase):
     """Bot for VK app."""

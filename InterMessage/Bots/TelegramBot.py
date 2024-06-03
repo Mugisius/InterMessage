@@ -4,9 +4,10 @@ from ..Message import Message, Attachment
 import aiogram
 import logging
 
-
 logging.basicConfig(level=logging.ERROR)
 
+def _(smth):
+    return smth
 
 class TelegramBot(BotBase):
     """Bot for Telegram app."""

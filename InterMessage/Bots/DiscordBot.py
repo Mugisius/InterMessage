@@ -3,6 +3,8 @@ from .BotBase import BotBase
 from ..Message import Message, Attachment
 import discord
 
+def _(smth):
+    return smth
 
 class DiscordBot(BotBase):
     """Bot for Discord app."""
