@@ -21,9 +21,11 @@ class Attachment():
     def __init__(self, type, url=None, file=None, filename=None) -> None:
         """Set up type, url, filename of message and save it in memory."""
         self.type = type
-        self.url = url
         if not file:
-            self.file = requests.get(url).content
+            if url != None:
+                self.file = requests.get(url).content
+            else:
+                self.file = None
         else:
             self.file = file
         if not filename:

@@ -44,13 +44,13 @@ class VkBot(BotBase):
         for a in msg.attachments:
             if a.photo:
                 url = a.photo.sizes[-5].url
-                content_type = "image"
+                content_type = "image/jpeg"
             elif a.video:
                 url = a.video.url
-                content_type = "video"
+                content_type = "video/mp4"
             elif a.audio:
                 url = a.audio.url
-                content_type = "audio"
+                content_type = "audio/mp3"
 
             attachments.append(Attachment(content_type, url))
 
