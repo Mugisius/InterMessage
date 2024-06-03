@@ -13,13 +13,13 @@ class DiscordBot(BotBase):
         intents.message_content = True
         self.client = discord.Client(intents=intents)
 
-        self.channel = parameters['channel']
+        self.channel_id = parameters['channel']
         self.token = parameters['token']
 
         @self.client.event
         async def on_ready():
             """Get channel for operate."""
-            self.channel = await self.client.fetch_channel(self.channel)
+            self.channel = await self.client.fetch_channel(self.channel_id)
 
         @self.client.event
         async def on_message(message):
