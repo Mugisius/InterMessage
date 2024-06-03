@@ -22,7 +22,7 @@ class Attachment():
         """Set up type, url, filename of message and save it in memory."""
         self.type = type
         if not file:
-            if url != None:
+            if url is not None:
                 self.file = requests.get(url).content
             else:
                 self.file = None
