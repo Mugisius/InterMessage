@@ -50,7 +50,6 @@ class DiscordBot(BotBase):
 
         :param message: msg to handle
         """
-
         if self.client.user and msg.author == self.client.user:
             return
 
