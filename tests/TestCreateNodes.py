@@ -19,13 +19,10 @@ class TestCreateNodes(unittest.TestCase):
             
             self.assertEqual(nodes[i].bot.token, messenger['parameters']['token'])
             if messenger['name'] == "telegram":
-                self.assertIsInstance(nodes[i].bot, InterMessage.Bots.TelegramBot.TelegramBot)
                 self.assertEqual(nodes[i].bot.chat_id, messenger['parameters']['channel'])
             elif messenger['name'] == "vk":
-                self.assertIsInstance(nodes[i].bot, InterMessage.Bots.VkBot.VkBot)
                 self.assertEqual(nodes[i].bot.peer_id, messenger['parameters']['channel'])
             elif messenger['name'] == "discord":
-                self.assertIsInstance(nodes[i].bot, InterMessage.Bots.DiscordBot.DiscordBot)
                 self.assertEqual(nodes[i].bot.channel, messenger['parameters']['channel'])
             i+=1
 

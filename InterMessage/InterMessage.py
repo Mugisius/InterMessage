@@ -31,6 +31,8 @@ def get_bot(messenger, parameters):
             return DiscordBot(parameters)
         case "logger":
             return Logger(parameters)
+        case _:
+            raise KeyError
 
 
 class IMNode():
