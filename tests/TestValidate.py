@@ -35,6 +35,7 @@ class TestValidate(unittest.TestCase):
 
     def test_conf5(self):
         self.assertEqual(validate(TestValidate.conf5), False)
-       
+
+
 if __name__ == "__main__":
     unittest.main()

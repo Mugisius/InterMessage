@@ -6,6 +6,7 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 from InterMessage.Message import Attachment
 
+
 class TestCreateNodes(unittest.TestCase):
 
     def test_a_only_type(self):
@@ -25,10 +26,11 @@ class TestCreateNodes(unittest.TestCase):
         self.assertEqual(a.filename, "image.jpeg")
 
     def test_a_filename(self):
-        filename="filename"
+        filename = "filename"
         a = Attachment("image/jpeg", filename=filename)
         self.assertIsNone(a.file)
         self.assertEqual(a.filename, filename)
-       
+
+
 if __name__ == "__main__":
     unittest.main()

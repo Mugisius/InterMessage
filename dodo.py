@@ -74,6 +74,16 @@ def task_docstyle():
     }
 
 
+def task_test():
+    """Make HTML documentationi."""
+    return {
+        'actions': [
+            'python tests/TestValidate.py -v',
+            'python tests/TestAttachment.py -v',
+        ],
+    }
+
+
 def task_check():
     """Perform all checks."""
     return {
